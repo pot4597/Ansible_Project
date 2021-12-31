@@ -3,6 +3,7 @@ import pymysql
 import psycopg2
 import datetime
 
+##보안을 위해 민감한 정보 삭제 및 테이블명/필드명 변경##
 try :
         #자산 Postgres db서버 연결
         conn_postgres =  psycopg2.connect(host="1.1.1.1", dbname='***', user="***", password="***", port="****")
