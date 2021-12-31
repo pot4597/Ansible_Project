@@ -2,14 +2,14 @@ import datetime
 import pymysql
 import CUBRIDdb as cubrid
 
-
+##보안을 위해 민감한 정보 삭제 및 테이블명/필드명 변경##
 
 try :
         #Cubrid db서버 연결
         conn_cubrid =  cubrid.connect('CUBRID:*:*:*:::','*','*')
         cursor_cubrid = conn_cubrid.cursor()
         
-        #mssql서버 접속후 데이터 select(보안을 위해 해당 테이블명 및 필드명 변경)
+        #mssql서버 접속후 데이터 select
         cursor_cubrid.execute("""select distinct
         o.jasan_no
         ,o.inout_date
