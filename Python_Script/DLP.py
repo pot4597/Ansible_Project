@@ -1,6 +1,8 @@
 import pymssql
 import pymysql
 import datetime
+
+##보안을 위해 민감한 정보 삭제 및 테이블명/필드명 변경##
 try :
         #Gradius Mssql서버 연결
         conn =  pymssql.connect(server="****" , user="***", password="***", database="***")
