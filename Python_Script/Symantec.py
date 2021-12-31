@@ -2,6 +2,8 @@ import pymssql
 import pymysql
 import datetime
 
+##보안을 위해 민감한 정보 삭제 및 테이블명/필드명 변경##
+
 try :
         #시만텍 Mssql서버 연결
         conn_symantec =  pymssql.connect(server="***" , user="***", password="***", database="***")
@@ -38,9 +40,9 @@ ELSE replace(lower(i.MAC_ADDR1), '-', '') END) AS macaddr
 , i.OPERATION_SYSTEM "Operation System"
 , i.SERVICE_PACK "Service Pack"
 , BIOS_SERIALNUMBER "SERIALNUMBER"
-from sem_agent as sa with (nolock) left outer join pattern pat on sa.pattern_idx=pat.pattern_idx
-inner join v_sem_computer i on i.computer_id=sa.computer_id
-inner join identity_map g on g.id=sa.group_id
+from test_sem_agent as sa with (nolock) left outer join TEST_pattern pat on sa.pattern_idx=pat.pattern_idx
+inner join TEST_v_sem_computer i on i.computer_id=sa.computer_id
+inner join TEST_identity_map g on g.id=sa.group_id
 where sa.deleted='0' and I.DELETED = 0 order by group_name, i.COMPUTER_name;
 """)
 
@@ -49,7 +51,7 @@ where sa.deleted='0' and I.DELETED = 0 order by group_name, i.COMPUTER_name;
         cursor_mysql = conn_mysql.cursor()
 
         #로컬 mysql서버 접속후 데이터 전체 삭제
-        cursor_mysql.execute("delete from symantec")
+        cursor_mysql.execute("delete from TEST_symantec")
         curs = conn_mysql.cursor()
 
 
@@ -73,7 +75,7 @@ where sa.deleted='0' and I.DELETED = 0 order by group_name, i.COMPUTER_name;
             i += 1
 
             #시만텍 서버에서 가져온 정보, 로컬 DB(Mysql)에 저장
-            sql = "insert into symantec (syman_accesstime, syman_computername, syman_status, syman_groupname, syman_clientversion, syman_ipaddr, syman_subnetmask, syman_gateway, syman_macaddr, syman_dns1, syman_dns2, syman_ostype, syman_serv_pack, syman_serialnum, num) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            sql = "insert into TEST_symantec (syman_accesstime, syman_computername, syman_status, syman_groupname, syman_clientversion, syman_ipaddr, syman_subnetmask, syman_gateway, syman_macaddr, syman_dns1, syman_dns2, syman_ostype, syman_serv_pack, syman_serialnum, num) values ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             val = (row[0], row[1], stateValue, row[3], row[4], row[5], row[6], row[7], mac, row[9], row[10], row[11], row[12], row[13], i)
             curs.execute(sql, val)
           
