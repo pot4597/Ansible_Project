@@ -3,19 +3,21 @@ import pymysql
 import psycopg2
 import datetime
 
+##보안을 위해 민감한 정보 삭제 및 테이블명/필드명 변경##
+
 try :
         #postgres db서버 연결
         conn_postgres =  psycopg2.connect(host="***", dbname='***', user="***", password="***", port="***")
         cursor_postgres = conn_postgres.cursor()
         #mssql서버 접속후 데이터 select
-        cursor_postgres.execute("select jasan_no, mac_no, ssid from as_manage")
+        cursor_postgres.execute("select jasan_no, mac_no, ssid from TEST_manage")
 
 
         #mysql서버 연결
         conn_mysql = pymysql.connect(host='127.0.0.1', user='***', password='***',db='***', charset='utf8')
         cursor_mysql = conn_mysql.cursor()
         #mysql서버 접속후 데이터 전체 삭제
-        cursor_mysql.execute("delete from wireless")
+        cursor_mysql.execute("delete from TEST_wireless")
         curs = conn_mysql.cursor()
 
 
@@ -28,7 +30,7 @@ try :
             #데이터 insert
             print(row_jasan[0])
             i += 1
-            sql = "insert into wireless (wireless_jasannum, wireless_macaddr, wireless_ssid, num) values (%s, %s, %s, %s)"
+            sql = "insert into TEST_wireless (wireless_jasannum, wireless_macaddr, wireless_ssid, num) values (%s, %s, %s, %s)"
             val = (row_jasan[0], row_jasan[1], row_jasan[2], i)
             row_jasan = cursor_postgres.fetchone()
             curs.execute(sql, val)
