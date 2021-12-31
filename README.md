@@ -7,3 +7,8 @@
 ![DB정보](https://user-images.githubusercontent.com/61907361/147737148-385c941f-29c4-48cc-ac64-bc4040e4300b.JPG)
 - L3 스위치 MAC기준으로 나머지 연동 시스템 정보 표시(현재 연결된 장비 상태 확인)
 
+## 조회 화면
+1. 자산 조회
+![조회화면](https://user-images.githubusercontent.com/61907361/147805347-2d71ce8a-5661-484e-9741-1653183064d9.JPG)
+2. 보안현황 조회 
+![조회화면2](https://user-images.githubusercontent.com/61907361/147805366-35d8c06c-4445-46a8-a340-1bde78013666.JPG)
